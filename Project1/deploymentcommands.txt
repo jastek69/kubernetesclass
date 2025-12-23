@@ -1,0 +1,10 @@
+kubectl apply -f splunk-pvc.yaml
+kubectl apply -f splunk-deployment.yaml
+kubectl apply -f splunk-service.yaml
+
+kubectl get pods
+kubectl get pvc
+kubectl get svc
+
+
+  
