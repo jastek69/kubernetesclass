@@ -1,0 +1,15 @@
+apiVersion: constraints.gatekeeper.sh/v1beta1
+kind: K8sServicePortByEnv
+metadata:
+  name: splunk-service-port-lock
+spec:
+  match:
+    kinds:
+      - apiGroups: [""]
+        kinds: ["Service"]
+  parameters:
+    namespaceLabelKey: "env"
+    allowedPortByEnv:
+      prod: 8091
+      dev: 28091
+      test: 18091
