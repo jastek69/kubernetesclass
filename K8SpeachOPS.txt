@@ -1,0 +1,168 @@
+🔥 Follow-up to Trick Question 1 (Laptop Fallacy)
+
+Primary question:
+
+“If docker pull works on your laptop but fails in Kubernetes, what would you check next?”
+
+Strong answer should include:
+node identity vs local identity
+registry permissions for nodes
+kubectl describe pod
+EKS IAM role / GKE node service account
+
+Red flag answer:
+“I’d rebuild the image or reapply the YAML.”
+
+🔥 Follow-up to Trick Question 2 (Who Pulls the Image)
+
+Primary question:
+“What component actually performs the image pull, and how does Kubernetes instruct it to do so?”
+
+Strong answer:
+kubelet on the node
+container runtime (containerd / Docker)
+API server only stores desired state
+
+Red flag answer:
+“Kubernetes pulls it automatically.”
+
+🔥 Follow-up to Trick Question 3 (YAML Addiction)
+
+Primary question:
+“Why does changing YAML often fail to fix ImagePullBackOff?”
+
+Strong answer:
+permissions live outside Kubernetes
+registry auth is external
+YAML can’t fix IAM
+
+Bonus signal:
+Mentions that imagePullPolicy rarely fixes auth issues.
+
+🔥 Follow-up to Trick Question 4 (kubectl apply Myth)
+
+Primary question:
+“What happens between kubectl apply and the container actually starting?”
+
+Strong answer:
+API server stores object
+controller reconciles desired state
+scheduler assigns node
+kubelet pulls image
+container runtime starts container
+
+Red flag answer:
+“kubectl starts the container.”
+
+🔥 Follow-up to Trick Question 5 (Node Identity Blind Spot)
+
+Primary question:
+“How would you verify which IAM role or service account your node is using?”
+
+Strong answer (EKS):
+inspect node IAM role
+understand node group configuration
+Strong answer (GKE):
+inspect node pool service account
+gcloud container clusters describe
+
+Red flag:
+“I’d check the Deployment.”
+
+🔥 Follow-up to Trick Question 6 (imagePullSecret Overuse)
+
+Primary question:
+“Why is node-based identity often preferred over imagePullSecrets?”
+
+Strong answer:
+no secret rotation burden
+fewer leaked credentials
+centralized control
+scales better
+
+Extra credit:
+Mentions blast radius trade-offs.
+
+🔥 Follow-up to Trick Question 7 (Image Exists… or Not)
+
+Primary question:
+“How would you determine whether an ImagePullBackOff is caused by a missing tag vs missing permissions?”
+
+Strong answer:
+error message inspection (manifest unknown vs unauthorized)
+attempt pull with known-good identity
+registry UI/CLI verification
+
+Red flag:
+“I’d try another tag randomly.”
+
+🔥 Follow-up to Trick Question 8 (Retry Misinterpretation)
+
+Primary question:
+“Why does Kubernetes retry image pulls even when the error is permanent?”
+
+Strong answer:
+Kubernetes can’t classify registry errors
+assumes transient network failures
+exponential backoff behavior
+
+Bonus:
+Mentions that retries don’t imply Kubernetes optimism.
+
+🔥 Follow-up to Trick Question 9 (kubectl describe Discipline)
+
+Primary question:
+“Why is kubectl describe pod more useful than logs for ImagePullBackOff?”
+
+Strong answer:
+container never started
+logs don’t exist yet
+describe includes kubelet + registry errors
+
+Red flag:
+“I always check logs first.”
+
+🔥 Follow-up to Trick Question 10 (Public vs Private)
+
+Primary question:
+“What changes operationally when you move from public to private registries?”
+
+Strong answer:
+authentication required
+permissions must exist before scheduling
+failure becomes non-obvious
+introduces IAM or secrets complexity
+
+🔥 Follow-up to Trick Question 11 (Cluster Nuke)
+
+Primary question:
+“Why does recreating the cluster sometimes ‘fix’ ImagePullBackOff?”
+
+Strong answer:
+new nodes get fresh IAM bindings
+hides underlying permission issue
+not a real fix
+
+Red flag:
+“It clears Kubernetes cache.”
+
+🔥 Follow-up to Trick Question 12 (One-Sentence Truth)
+
+Primary question:
+“Explain image pulling in Kubernetes in one sentence.”
+Strong answer (any equivalent):
+“Nodes pull images using an identity; Kubernetes only tells them what to pull.”
+
+Weak answer:
+“Kubernetes downloads containers.”
+
+Meta-Interview Question (Very Powerful)
+
+Ask this at the end:
+“If you see ImagePullBackOff, what is the first thing you check—and what is the last thing you touch?”
+
+Strong answer:
+First: kubectl describe pod
+Last: YAML
+
+That answer alone tells you whether the candidate is ready for production.
