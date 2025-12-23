@@ -30,3 +30,15 @@ kubectl apply -f 21-constraint-splunk-service-port-by-env.yaml
 
 kubectl get constrainttemplates | grep k8sserviceportbyenv
 kubectl get constraints | grep splunk-service-port-lock
+
+kubectl apply -f 30-app-splunk-prod.yaml
+kubectl apply -f 31-app-splunk-dev.yaml
+kubectl apply -f 32-app-splunk-test.yaml
+
+kubectl -n argocd get applications
+
+kubectl apply -f 40-cheat-prod-to-dev.yaml
+Expected: Forbidden with your Gatekeeper message.
+
+kubectl apply -f 41-cheat-prod-service-wrong-port.yaml
+Expected: Forbidden
