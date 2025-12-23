@@ -1,1 +1,283 @@
 
+Kubernetes Debug Tree (EKS + GKE)
+
+Printable “Top 10” Quick Reference (laminated-card style)
+
+Wrong context → kubectl config current-context
+No nodes/cluster unreachable → re-auth (aws/gcloud)
+Pending pods → describe pod (resources/selector/pvc)
+ImagePullBackOff → describe pod (tag/auth)
+CrashLoopBackOff → logs --previous + describe
+PVC Pending → describe pvc + get storageclass
+Service no endpoints → selector mismatch
+Ingress 404 → host/path/class mismatch
+Ingress 502 → endpoints/ports wrong
+Cert-manager stuck → DNS/HTTP-01/issuer mismatch
+
+
+
+
+First Rule: Identify the failure layer
+
+Layer order (don’t skip):
+
+kubectl connectivity / context
+K8s objects exist
+Pod scheduling
+Image pull
+Container runtime / app
+Storage
+Service endpoints
+Ingress routing
+TLS / cert-manager
+
+Always run these first (baseline)
+kubectl config current-context
+kubectl cluster-info
+kubectl get nodes
+kubectl -n <ns> get all
+kubectl -n <ns> get events --sort-by=.metadata.creationTimestamp | tail -n 30
+
+Troubleshooting
+
+A) “kubectl can’t talk to the cluster”
+Symptom
+Unable to connect to the server
+You must be logged in to the server
+Forbidden
+
+Commands
+kubectl cluster-info
+kubectl get nodes
+kubectl config get-contexts
+kubectl auth can-i get pods -n <ns>
+
+Likely causes
+wrong context / wrong cluster
+expired cloud auth (SSO token, gcloud session)
+IAM mapped but RBAC denies
+
+Fix
+
+EKS
+aws sts get-caller-identity
+aws eks update-kubeconfig --region <region> --name <cluster>
+
+GKE
+gcloud auth list
+gcloud config get-value project
+gcloud container clusters get-credentials <cluster> --region <region>
+If auth works but still forbidden:
+kubectl auth can-i '*' '*' -n <ns>
+→ then it’s RBAC/IAM mapping, not kubectl.
+
+B) Pods stuck in Pending
+Symptom
+Pending forever
+
+Commands
+kubectl -n <ns> get pods -o wide
+kubectl -n <ns> describe pod <pod>
+kubectl get nodes
+
+Likely causes + fixes
+
+1) Not enough CPU/memory
+Describe output shows Insufficient cpu / Insufficient memory
+Fix:
+lower resource requests
+add nodes / increase nodepool
+
+2) Node selector / affinity mismatch
+node(s) didn't match node selector
+Fix:
+remove/adjust nodeSelector/affinity
+ensure labels exist:
+kubectl get nodes --show-labels | head
+
+C) ImagePullBackOff / ErrImagePull
+Symptom
+Pod starts then fails to pull image
+Commands
+kubectl -n <ns> describe pod <pod>
+
+
+Look for image pull error text.
+
+Likely causes + fixes
+
+1) Wrong image name/tag
+Fix: correct image reference, push correct tag.
+
+2) Private registry auth missing
+Fix: imagePullSecret + service account.
+
+EKS + ECR sanity
+
+confirm image exists in ECR and nodes can pull (IAM role for nodes / IRSA pattern).
+Typical fix is ensuring node IAM role has ECR permissions (or use IRSA + imagePullSecret if needed).
+
+GKE + Artifact Registry/GCR sanity
+
+ensure node pool service account has artifactregistry.reader (or legacy storage permissions for GCR).
+
+D) CrashLoopBackOff
+Symptom
+
+Pod cycles: starts, dies, restarts
+
+Commands (in this exact order)
+kubectl -n <ns> get pods
+kubectl -n <ns> logs <pod> --previous --tail=200
+kubectl -n <ns> describe pod <pod>
+
+Likely causes + fixes
+
+1) Bad env var / missing secret/config
+logs show “missing config”, “cannot read env”
+Fix:
+kubectl -n <ns> get cm,secret
+kubectl -n <ns> describe cm <name>
+kubectl -n <ns> describe secret <name>
+
+2) Wrong port binding
+app listening on different port than containerPort/service
+Fix: align containerPort, Service targetPort, app config
+
+3) Needs more memory
+OOMKilled in describe
+Fix: increase memory requests/limits
+
+4) App cannot reach dependency
+DB/Redis not reachable
+Fix: verify DNS/service name, NetworkPolicy, endpoints
+
+E) PVC Pending / storage not binding
+Symptom
+PVC stuck Pending
+StatefulSet pods pending waiting for volume
+Commands
+
+kubectl -n <ns> get pvc
+kubectl -n <ns> describe pvc <pvc>
+kubectl get storageclass
+kubectl -n <ns> get events --sort-by=.metadata.creationTimestamp | tail -n 30
+
+Likely causes + fixes
+
+1) No default StorageClass
+Fix: set StorageClass or create one.
+
+2) Wrong access mode
+Most cloud disks are ReadWriteOnce (RWO). Don’t request RWX unless you know.
+Fix: use RWO.
+
+3) Zone constraints
+node in zone A but volume requires zone B (less common now, but happens)
+Fix: ensure node pool spans zones properly; use appropriate SC.
+
+F) Service exists but “no endpoints” / traffic fails inside cluster
+Symptom
+Service returns nothing, connection refused
+kubectl get endpoints <svc> shows none
+Commands
+
+kubectl -n <ns> get svc
+kubectl -n <ns> describe svc <svc>
+kubectl -n <ns> get endpoints <svc>
+kubectl -n <ns> get pods -l app=<label> -o wide
+
+Likely causes + fixes
+
+1) Selector mismatch
+Service selector doesn’t match pod labels
+Fix: align spec.selector with pod labels.
+
+2) Pod not Ready
+endpoints empty because readiness failed
+Fix: check probes and pod logs.
+
+3) Wrong targetPort
+Fix: targetPort must match container listening port.
+
+Quick internal test:
+kubectl -n <ns> run tmp-shell --rm -it --image=curlimages/curl -- sh
+curl -v http://<svc>:<port>/
+
+
+G) Ingress returns 404 / 502 / 504
+Symptom
+404 from NGINX
+502 Bad Gateway
+504 Gateway Timeout
+
+Commands
+kubectl -n <ns> get ingress
+kubectl -n <ns> describe ingress <ingress>
+kubectl -n ingress-nginx get pods
+kubectl -n ingress-nginx logs deploy/ingress-nginx-controller --tail=200
+kubectl -n <ns> get svc,endpoints
+
+Root causes
+
+404
+host/path doesn’t match request
+wrong ingress class
+Fix:
+
+confirm host header is correct (DNS + request)
+confirm ingressClassName/annotation matches your controller
+
+502
+service has no endpoints OR wrong service port
+Fix:
+check endpoints exist (F)
+ensure ingress backend points to correct service + port
+
+504
+upstream slow / timeouts too low
+Fix:
+raise proxy-read-timeout, proxy-send-timeout
+ensure app is healthy and not blocking
+
+H) TLS / cert-manager not issuing
+Symptom
+cert stuck Pending
+secret not created
+browser shows invalid cert
+
+Commands
+kubectl get clusterissuer
+kubectl -n <ns> get certificate
+kubectl -n <ns> describe certificate <cert>
+kubectl -n <ns> get orders,challenges
+kubectl -n cert-manager logs deploy/cert-manager --tail=200
+kubectl -n <ns> describe ingress <ingress>
+
+
+Likely causes + fixes
+
+1) DNS not pointing to ingress LB
+Fix: set DNS A/AAAA to ingress external IP/hostname.
+
+2) HTTP-01 path blocked
+Fix: ensure port 80 reachable to ingress; no firewall blocking.
+
+3) Wrong issuer name
+Fix: annotation cert-manager.io/cluster-issuer: letsencrypt-prod must match real issuer.
+
+EKS & GKE: “What’s my Ingress external address?”
+Commands (both clouds)
+
+kubectl -n ingress-nginx get svc
+
+Look for the controller Service of type LoadBalancer and its EXTERNAL-IP.
+You can also:
+
+kubectl -n ingress-nginx get svc ingress-nginx-controller -o wide
+
+Optional: “One command to snapshot everything” (student lifesaver)
+
+kubectl -n <ns> get all,cm,secret,pvc,ingress,certificate,events --sort-by=.metadata.creationTimestamp
+
+
