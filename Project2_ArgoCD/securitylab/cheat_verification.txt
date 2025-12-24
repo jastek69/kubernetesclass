@@ -1,0 +1,11 @@
+“Cheat Attempt” (Argo Project should deny even before Gatekeeper)
+
+Example: try to point prod app at dev namespace while staying in prod project:
+
+spec:
+  project: splunk-prod
+  destination:
+    namespace: splunk-dev
+
+  
+When applied, Argo should reject it because splunk-dev is not in the allowed destinations for splunk-prod.
