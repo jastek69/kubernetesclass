@@ -3,6 +3,14 @@
 3) Tell Flux what folder to apply (Kustomization)
 4) Put Splunk manifests in that folder
 
+Minimal “first Splunk deploy” checklist (for students)
+A) kubectl get pods -n flux-system (controllers up)
+B) flux get sources git -A (repo fetched successfully)
+C) flux get kustomizations -A (kustomization applied successfully)
+D) kubectl -n splunk get pods (Splunk running)
+
+
+
 I’ll include both:
   Flux CLI bootstrap (best experience)
   Pure YAML install (if you don’t want to rely on CLI)
@@ -76,3 +84,22 @@ git add .
 git commit -m "Add splunk dev manifests"
 git push
 
+Flux reconcile (optional “make it happen now” command):
+flux reconcile kustomization splunk-dev -n flux-system --with-source
+
+Verify in cluster:
+kubectl -n splunk get pods,svc,pvc
+
+
+Flux Goals! Flux mental model)
+
+Flux runs two big loops:
+  Source Controller fetches Git → stores an artifact in-cluster
+  Kustomize Controller applies manifests → enforces drift correction
+
+So troubleshooting often starts with:
+
+flux get sources git -A
+flux get kustomizations -A
+kubectl -n flux-system logs deploy/source-controller --tail=200
+kubectl -n flux-system logs deploy/kustomize-controller --tail=200
