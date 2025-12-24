@@ -85,4 +85,43 @@ kubectl -n flux-system describe kustomization splunk-dev
 
 
 
+If you added PVC, Secret, can Config later
+
+Commit + push (Flux will deploy)
+git add clusters/dev/splunk
+git commit -m "Deploy Splunk dev (PVC + secret + config) via Flux"
+git push
+
+Force reconcile (optional):
+flux reconcile source git github-platform -n flux-system
+flux reconcile kustomization splunk-dev -n flux-system --with-source
+
+Verify + access Splunk Web UI
+check
+kubectl -n splunk-dev get pods
+kubectl -n splunk-dev get pvc
+kubectl -n splunk-dev describe pod splunk-0
+
+Port-forward:
+kubectl -n splunk-dev port-forward svc/splunk 8091:8091
+
+Open:
+http://localhost:8091
+
+Login:
+user: admin
+password: from SPLUNK_PASSWORD
+
+Troubleshooting
+
+PVC Pending
+kubectl -n splunk-dev describe pvc splunk-pvc
+kubectl get storageclass
+
+ImagePullBackOff (Docker Hub throttling / blocked)
+kubectl -n splunk-dev describe pod splunk-
+
+Splunk won’t start (license/env)---> Did you pay rent?
+kubectl -n splunk-dev logs splunk-0
+
 
