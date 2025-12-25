@@ -124,4 +124,17 @@ kubectl -n splunk-dev describe pod splunk-
 Splunk won’t start (license/env)---> Did you pay rent?
 kubectl -n splunk-dev logs splunk-0
 
+How to add Ingress + TLS
+
+You’ll add 3 things to your repo:
+
+  1) Ingress-NGINX controller (cluster add-on, one-time install)
+  2) cert-manager (cluster add-on, one-time install)
+  3) App manifests: ClusterIssuer + Ingress for Splunk (in your clusters/dev/splunk/ folder)
+
+I’ll give you both TLS modes:
+
+  A) Self-signed TLS (works anywhere, perfect for labs)
+  B) Let’s Encrypt HTTP-01 (requires real DNS + public ingress)
+
 
