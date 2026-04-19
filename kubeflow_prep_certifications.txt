@@ -1,0 +1,120 @@
+1️⃣ Core Certifications (Linux Foundation)
+CKA — Certified Kubernetes Administrator
+
+Linux Foundation
+Certified Kubernetes Administrator
+
+Why it belongs in your program
+
+Focuses on operating Kubernetes, not theory
+Requires real command-line competence
+Emphasizes cluster lifecycle, networking, and troubleshooting
+Performance-based (no multiple choice)
+
+What it maps to in SEIR
+
+Platform responsibility
+Calm under failure
+Reading system state instead of guessing
+
+Who should take it
+
+All Kubernetes students after foundational labs
+Especially those targeting Platform Engineer, SRE, or Cloud Engineer roles
+
+
+CKS — Certified Kubernetes Security Specialist
+
+Certified Kubernetes Security Specialist
+
+Why it belongs
+
+Forces students to think about blast radius
+Covers RBAC, pod security, network policy, supply chain
+Punishes “it works so ship it” behavior
+
+What it maps to
+
+SEIR-I identity thinking, but at runtime
+Security as constraint, not decoration
+
+Who should take it
+
+Students who want:
+MLOps
+Platform Security
+Identity-aware Kubernetes roles
+
+You’re right to keep heavy cloud security elsewhere — but CKS-level thinking is runtime hygiene, not policy theater.
+
+
+KCNA — Kubernetes and Cloud Native Associate
+
+Kubernetes and Cloud Native Associate
+
+Your honest positioning
+
+Optional
+Conceptual
+Useful only as a confidence ramp for weaker students
+
+Use it if
+
+A student needs vocabulary before the real work
+You want a low-stakes on-ramp
+
+Do NOT
+
+Let this replace CKA-level expectations
+
+
+2️⃣ Linux Foundation Training Materials (Recommended)
+LFS258 — Kubernetes Fundamentals
+
+Kubernetes Fundamentals
+
+Why it’s solid
+
+Vendor-neutral
+Focused on primitives and mechanics
+Clear explanations without hype
+
+LFS260 — Kubernetes Security Essentials: Kubernetes Security Essentials
+
+
+CKA/CKS Exam Simulator (LF)
+
+Linux Foundation Exam Simulator
+
+Why it matters
+
+Teaches time pressure discipline
+Forces decision-making under constraint
+Mirrors real outage stress better than tutorials
+
+3️⃣ Kubeflow-Specific Guidance (Important)
+
+Linux Foundation does not certify Kubeflow directly, and that’s actually a good thing.
+
+Your recommended framing:
+
+Kubeflow is a platform responsibility, not a “data science toy”
+
+Students should demonstrate:
+
+Kubeflow pipelines
+Identity-bound access to experiments
+Artifact storage discipline
+Failure recovery (not just success paths)
+
+Certs that indirectly support Kubeflow
+
+CKA (cluster ops)
+CKS (runtime security)
+Cloud platform certs (AWS/GCP) — secondary
+
+Kubeflow without Kubernetes discipline produces dangerous engineers.
+Kubernetes discipline without Kubeflow limits modern relevance.
+You are teaching the intersection.
+
+  
