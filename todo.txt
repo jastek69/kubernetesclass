@@ -1,0 +1,10 @@
+We want 3 Kubestronaughts by Vegas.
+Need to focus on CKA
+Then CKS 
+
+Jenkins to K8
+Github to K8
+Harness to K8
+
+Gitlab (Barf) to K8
+
