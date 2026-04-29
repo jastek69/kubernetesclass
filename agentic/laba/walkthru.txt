@@ -72,6 +72,19 @@ vertex-agent-iam.tf:  https://github.com/BalericaAI/kubernetesclass/blob/main/ag
 
 E) YAML Kubernetes Service Account
 
-k8s-service-account.yaml: 
+k8s-service-account.yaml: https://github.com/BalericaAI/kubernetesclass/blob/main/agentic/laba/yaml/k8s-service-account.yaml
+Remember to replace the Project ID
+
+F) llow Kubernetes SA to Use Google SA
+
+        gcloud iam service-accounts add-iam-policy-binding \
+          vertex-gke-agent@PROJECT_ID.iam.gserviceaccount.com \
+          --role roles/iam.workloadIdentityUser \
+          --member "serviceAccount:PROJECT_ID.svc.id.goog[default/vertex-agent-ksa]"
+
+G) Broken App
+
+broken-app.yaml: 
+
 
 
