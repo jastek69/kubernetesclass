@@ -1,0 +1,71 @@
+Vertex AI Single Agent on GKE
+Lab Title
+
+GKE Log Investigator Agent using Vertex AI
+
+A) Lab Use Case
+    Scenario
+    
+    A bad application is deployed to GKE.
+    
+    It sometimes fails because of a fake database connection error.
+    
+    The agent will:
+    
+        Read recent pod logs
+        Send the logs to Vertex AI
+        Ask Vertex AI to classify the issue
+        Print a recommended action
+        Optionally restart the broken deployment
+
+B) Prerequisites
+
+    Mutants should already have:
+    
+        GCP / Terraform
+        Existing GCP project
+        Existing GKE cluster built with Terraform
+        Workload Identity Federation enabled on GKE
+        Terraform state working
+        kubectl connected to the cluster
+
+    APIs Enabled
+        Kubernetes Engine API
+        Vertex AI API
+        Cloud Logging API
+        IAM API
+        Student Skills
+    
+    You should already understand:
+    
+        kubectl get pods
+        kubectl logs
+        kubectl describe pod
+        basic Deployment YAML
+        basic Python
+        Terraform apply workflow
+
+C) Architecture
+
+[ Broken App Pod ]
+        |
+        | kubectl logs / Kubernetes API
+        v
+[ Agent Pod ]
+        |
+        | sends logs to Vertex AI
+        v
+[ Vertex AI / Gemini ]
+        |
+        | returns diagnosis
+        v
+[ Agent Decision ]
+        |
+        | optional safe action
+        v
+[ Restart Deployment / Print Report ]
+
+
+D) Terraform Additions
+
+vertex-agent-iam.tf: 
