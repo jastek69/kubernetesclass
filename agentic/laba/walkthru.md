@@ -103,7 +103,16 @@ gcloud builds submit \
 
 K) Agent Deployment
 
-vertex-agent-deployment.yaml: 
+vertex-agent-deployment.yaml:  https://github.com/BalericaAI/kubernetesclass/blob/main/agentic/laba/yaml/vertex-agent-deployment.yaml
 
+Apply: 
+
+        kubectl apply -f k8s-service-account.yaml
+        kubectl apply -f vertex-agent-deployment.yaml
+
+
+L) RBAC for Agent
+
+agent-rbac.yaml: 
 
 
