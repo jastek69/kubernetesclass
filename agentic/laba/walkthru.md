@@ -86,7 +86,7 @@ G) Broken App
 
 broken-app.yaml: https://github.com/BalericaAI/kubernetesclass/blob/main/agentic/laba/yaml/broken-app.yaml
 
-Apply: kubectl apply -f broken-app.yaml
+        Apply: kubectl apply -f broken-app.yaml
 
 H) Agent Python Code
 
@@ -98,8 +98,8 @@ This Dockerfile:  https://github.com/BalericaAI/kubernetesclass/blob/main/agenti
 
 J) Build and Push Image
 
-gcloud builds submit \
-  --tag gcr.io/PROJECT_ID/vertex-agent:lab1a
+        gcloud builds submit \
+          --tag gcr.io/PROJECT_ID/vertex-agent:lab1a
 
 K) Agent Deployment
 
@@ -113,6 +113,44 @@ Apply:
 
 L) RBAC for Agent
 
-agent-rbac.yaml: 
+agent-rbac.yaml: https://github.com/BalericaAI/kubernetesclass/blob/main/agentic/laba/yaml/agent-rbac.yaml
+
+        Apply: kubectl apply -f agent-rbac.yaml
+
+
+M) Validation
+
+        kubectl get pods
+        kubectl logs deployment/broken-app
+        kubectl logs deployment/vertex-agent
+
+Expected result:
+
+Collecting logs...
+Asking Vertex AI...
+
+        === Agent Diagnosis ===
+        likely_issue: database connection failure
+        severity: medium
+        recommended_action: check database hostname, service, DNS, and network path
+        should_restart: no
+
+
+If the model says restart is appropriate, students may see:
+
+        Agent chose restart action.
+        deployment.apps/broken-app restarted
+
+O) Success Criteria
+
+Students pass the lab when they can show:
+
+Broken app running
+Agent pod running
+Agent reads logs
+Agent calls Vertex AI
+Agent prints diagnosis
+Agent explains likely issue
+Agent either recommends action or performs safe restart
 
 
