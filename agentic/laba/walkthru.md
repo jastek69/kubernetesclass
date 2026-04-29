@@ -146,7 +146,7 @@ If the model says restart is appropriate, students may see:
 
 O) Success Criteria
 
-Students pass the lab when they can show:
+Show this to pass:
 
     Broken app running
     Agent pod running
