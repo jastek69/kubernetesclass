@@ -1,0 +1,187 @@
+Goal: “We’re not building AI. We’re building a system that uses AI to make decisions.”
+
+1. What is Agentic AI (Plain English, No Nonsense)
+
+Agentic AI = AI Platform which can look at a situation, decide what to do, take action, and check if it worked — without you scripting every step.
+Wouldn't you like this?
+
+
+Normal Python Scripting ---> Compare It to What They Already Know
+Traditional Automation: --> “If X happens → do Y”
+Static
+You wrote every rule
+
+Agentic AI: --> “Something is wrong → figure out what → decide → act → check”
+Dynamic
+It reasons (within boundaries)
+
+Normally...
+A bash script is a checklist
+An agent is a junior SRE
+
+Script: blindly runs commands
+Agent: thinks, then acts
+
+What is Agentic AI within Kubernetes Mapping?
+
+“An AI agent is basically a Kubernetes controller… but instead of reconciling state, it’s reconciling decisions.”
+
+    A. Watches environment (logs, metrics)
+    B. Decides desired outcome
+    C. Takes action
+    D. Loops
+
+2) Why Agentic AI is Useful
+
+    The Problem Today:
+    
+        Logs everywhere
+        Alerts firing
+        Runbooks outdated
+        Humans tired
+    
+    Agentic AI Makes Life Easier
+    A. Reduce Cognitive Load
+    
+    Instead of: “read 500 lines of logs”
+    You get: “this is a DB connection issue”
+    
+    B. Speed Up Incident Response
+    
+    Instead of: 15 minutes to diagnose
+    You get: 30 seconds to direction
+
+    C. Standardize Thinking
+    
+        Agents apply:
+        
+            consistent logic
+            no panic
+            no ego
+    
+    D. Bridge Skill Gaps
+    
+        Junior engineer + agent ≈ mid-level operator
+        
+        NOTE: Important Reality Check (Teach This Clearly)
+    
+    Agents are assistants, not replacements
+    
+        They:
+        
+            Suggest
+            Execute simple actions
+        
+        They do NOT:
+        
+            Replace senior judgment
+            Understand full business context
+            Do your homework
+            Be responsible for you.
+            Read a book for you.
+
+
+3. Why Start with Vertex AI? Because Theo likes it.
+
+    We choose Google Cloud Vertex AI because:
+    
+    ✅ It removes friction
+      No model hosting
+      No GPU headaches
+      Clean API
+    
+    ✅ It integrates cleanly with GCP
+      Logging
+      IAM
+      GKE  
+    
+    ✅ It lets students focus on:
+    
+    “What is an agent doing?” instead of “why won’t my model start?”
+
+4. Lab Prerequisites (Be Strict Here)
+
+🧱 Infrastructure (Already Built via Terraform)
+
+Students should already have:
+
+✅ GKE Cluster
+  Standard cluster (not Autopilot)
+  kubectl working
+
+✅ IAM Setup
+  Service account for workloads
+  Workload Identity enabled
+
+✅ Networking
+  Basic VPC + subnet
+  Egress to Google APIs
+
+GCP Services Enabled
+  Vertex AI API
+  Cloud Logging API
+  IAM API
+
+Permissions
+
+Agent service account should have:
+
+    roles/logging.viewer
+    roles/aiplatform.user
+    roles/container.developer (or scoped custom role)
+
+5. The First Use Case (Keep It Real)
+🎯 “Log Investigator Agent”
+
+When an application breaks, the agent:
+
+    Reads logs
+    Figures out what’s wrong
+    Suggests or performs a fix
+
+
+Why This Use Case Works
+    Everyone understands logs
+    Everyone has seen failures
+    Immediate job relevance
+
+What the Agent Actually Does
+
+In human terms:---> “Yo Meatbag! I see errors. Looks like DB connection failed. You probably need to restart or check config.”
+
+That’s it.
+
+6. What Vertex AI Is Doing (Simple Explanation)
+
+Do NOT overcomplicate this.
+
+
+    Your Agent Flow:
+    Get logs
+    Send logs → Vertex AI
+    Vertex responds:
+      “This looks like X problem”
+      
+    Your code:
+      interprets response
+      decides action
+
+Key Insight
+
+Vertex AI is NOT the agent
+Your code is the agent
+
+Vertex = brain
+Your app = decision system
+
+8. What You Are REALLY Teaching
+
+Not tools.
+Not APIs.
+
+This is.... 
+
+    Decision automation
+    Operational thinking
+    Controlled autonomy
+    
