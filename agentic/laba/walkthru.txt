@@ -68,4 +68,10 @@ C) Architecture
 
 D) Terraform Additions
 
-vertex-agent-iam.tf: 
+vertex-agent-iam.tf:  https://github.com/BalericaAI/kubernetesclass/blob/main/agentic/laba/terraform/vertex-agent-iam.tf
+
+E) YAML Kubernetes Service Account
+
+k8s-service-account.yaml: 
+
+
