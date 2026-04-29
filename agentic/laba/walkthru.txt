@@ -90,7 +90,11 @@ Apply: kubectl apply -f broken-app.yaml
 
 H) Agent Python Code
 
-agent.py: 
+agent.py: https://github.com/BalericaAI/kubernetesclass/blob/main/agentic/laba/python/agent.py
+
+I) Dockerfile
+
+This Dockerfile: 
 
 
 
