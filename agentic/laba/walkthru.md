@@ -103,6 +103,8 @@ This Dockerfile:  https://github.com/BalericaAI/kubernetesclass/blob/main/agenti
 
 J) Build and Push Image
 
+Do this first!!! gcloud auth configure-docker gcr.io
+
         gcloud builds submit \
           --tag gcr.io/PROJECT_ID/vertex-agent:lab1a
 
