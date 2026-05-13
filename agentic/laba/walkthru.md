@@ -78,7 +78,8 @@ E) YAML Kubernetes Service Account
 k8s-service-account.yaml: https://github.com/BalericaAI/kubernetesclass/blob/main/agentic/laba/yaml/k8s-service-account.yaml
 Remember to replace the Project ID
 
-F) llow Kubernetes SA to Use Google SA
+F) Allow Kubernetes SA to Use Google SA
+Remember to change the PROJECT_ID
 
         gcloud iam service-accounts add-iam-policy-binding \
           vertex-gke-agent@PROJECT_ID.iam.gserviceaccount.com \
@@ -92,6 +93,7 @@ broken-app.yaml: https://github.com/BalericaAI/kubernetesclass/blob/main/agentic
         Apply: kubectl apply -f broken-app.yaml
 
 H) Agent Python Code
+You need this: pip install google-genai
 
 agent.py: https://github.com/BalericaAI/kubernetesclass/blob/main/agentic/laba/python/agent.py
 
