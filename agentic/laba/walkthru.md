@@ -103,7 +103,12 @@ This Dockerfile:  https://github.com/BalericaAI/kubernetesclass/blob/main/agenti
 
 J) Build and Push Image
 
-Do this first!!! gcloud auth configure-docker gcr.io
+Do this first!!! 
+
+
+        gcloud auth configure-docker gcr.io #To push to gcr
+        gcloud projects describe [PROJECT_ID]: Fetches metadata for the specified projectNumber
+        gcloud alpha iam policies lint-condition
 
         gcloud builds submit \
           --tag gcr.io/PROJECT_ID/vertex-agent:lab1a
