@@ -99,6 +99,10 @@ agent.py: https://github.com/BalericaAI/kubernetesclass/blob/main/agentic/laba/p
 In the same folder as agent.py, please create a .env file with the following: 
 https://github.com/BalericaAI/kubernetesclass/blob/main/agentic/laba/python/env.txt
 
+Also run 
+
+gcloud components install gke-gcloud-auth-plugin
+
 MAke sure your project value is YOURs not mine.
 
 
