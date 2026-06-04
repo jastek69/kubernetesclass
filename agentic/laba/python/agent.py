@@ -1,4 +1,6 @@
 import os
+from dotenv import load_dotenv  # Or load_dotenv
+load_dotenv()  # This automatically reads your .env file
 import subprocess
 import time
 from google import genai
@@ -43,11 +45,12 @@ Logs:
 {logs}
 """
 
-    response = client.models.generate_content(
-        model=MODEL,
-        contents=prompt,
-    )
+    print("Prompt:", prompt)
 
+    response = client.models.generate_content(
+            model=MODEL,
+            contents=logs,
+        )
     return response.text
 
 def restart_deployment():
