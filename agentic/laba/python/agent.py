@@ -30,11 +30,9 @@ def get_logs():
     return result.stdout + result.stderr
 
 def ask_vertex(logs):
-    prompt = f"""
-You are an SRE assistant.
-
+    # This variable builds the text prompt string
+    prompt = f"""You are an SRE assistant.
 Analyze these Kubernetes application logs.
-
 Return:
 1. likely_issue
 2. severity: low, medium, high
@@ -42,16 +40,19 @@ Return:
 4. should_restart: yes or no
 
 Logs:
-{logs}
-"""
+{logs}"""
 
     print("Prompt:", prompt)
 
-    response = client.models.generate_content(
+    try:
+        response = client.models.generate_content(
             model=MODEL,
-            contents=logs,
+            contents=prompt,
         )
-    return response.text
+        return response.text
+    except Exception as e:
+        return f"❌ Vertex AI API Error: {str(e)}"
+
 
 def restart_deployment():
     cmd = [
