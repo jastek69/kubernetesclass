@@ -1,0 +1,79 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: app01
+  labels:
+    purpose: application
+    environment: lab
+    security-tier: low
+    owner: students
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: security
+  labels:
+    purpose: security
+    environment: lab
+    security-tier: high
+    owner: security-team
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: monitoring
+  labels:
+    purpose: observability
+    environment: lab
+    security-tier: medium
+    owner: platform-team
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: ai-agents
+  labels:
+    purpose: ai
+    environment: lab
+    security-tier: high
+    owner: ai-platform
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: mcp
+  labels:
+    purpose: governance
+    environment: lab
+    security-tier: critical
+    owner: platform-security
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: incident-response
+  labels:
+    purpose: incident-response
+    environment: lab
+    security-tier: high
+    owner: soc-team
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: shared-services
+  labels:
+    purpose: shared-services
+    environment: lab
+    security-tier: medium
+    owner: platform-team
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: ingress
+  labels:
+    purpose: ingress
+    environment: lab
+    security-tier: critical
+    owner: networking-team
