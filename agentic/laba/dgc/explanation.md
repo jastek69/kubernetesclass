@@ -1,5 +1,8 @@
-Lab Introduction – Deterministic Governance Core (DGC)
-What is the Deterministic Governance Core?
+# Our Deterministic Governance Core (DGC)
+
+Throughout this course, our Deterministic Governance Core (DGC) will serve as the trusted decision engine for our AI Security Platform. Rather than allowing AI models to make security decisions directly, the DGC applies deterministic rules, organizational policy, and governance controls before any operational action is taken.
+
+# What is the Deterministic Governance Core?
 
 As AI becomes integrated into enterprise environments, organizations face an important question:
 
@@ -20,11 +23,9 @@ For critical security operations, organizations need a component that always pro
 
 This is the purpose of the Deterministic Governance Core (DGC).
 
-What Does "Deterministic" Mean?
+# What Does "Deterministic" Mean?
 
-A deterministic system behaves predictably.
-
-If the inputs remain the same, the outputs remain the same.
+A deterministic system behaves predictably. If the inputs remain the same, the outputs remain the same.
 
 Example: Today
 
@@ -71,10 +72,9 @@ The Role of the DGC
 The Deterministic Governance Core acts as the organization's decision engine. Its purpose is to make repeatable security decisions based on predefined rules and policies.
 
 Instead of asking: --> What does the AI think?
-
 the DGC asks: ---> What do our security policies require?
 
-Responsibilities of the DGC
+# Responsibilities of the DGC
 
 The DGC performs tasks such as:
 
@@ -138,7 +138,7 @@ AI does not replace the DGC. Instead, AI works alongside it.
 
 The DGC determines what should happen.  The AI explains why.
 
-DGC vs AI
+# DGC vs AI
 
 | Deterministic Governance Core | AI                        |
 | ----------------------------- | ------------------------- |
@@ -213,10 +213,6 @@ Using a DGC provides:
         Clear separation between AI reasoning and organizational policy
 
 This architecture aligns well with highly regulated environments where explainability and repeatability are essential.
-
-# Our Deterministic Governance Core (DGC)
-
-Throughout this course, our Deterministic Governance Core (DGC) will serve as the trusted decision engine for our AI Security Platform. Rather than allowing AI models to make security decisions directly, the DGC applies deterministic rules, organizational policy, and governance controls before any operational action is taken.
 
 The DGC is responsible for:
 
