@@ -1,0 +1,41 @@
+```yaml id="xb3e1w"
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: mcp-guardian-agent
+  namespace: ai-governance
+
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: mcp-guardian-agent
+
+  template:
+    metadata:
+      labels:
+        app: mcp-guardian-agent
+
+    spec:
+      serviceAccountName: guardian-agent
+
+      containers:
+      - name: guardian
+
+        image: gcr.io/PROJECT_ID/mcp-guardian-agent:v1
+
+        resources:
+          requests:
+            cpu: "250m"
+            memory: "256Mi"
+
+          limits:
+            cpu: "500m"
+            memory: "512Mi"
+
+        securityContext:
+          runAsNonRoot: true
+          readOnlyRootFilesystem: true
+```
