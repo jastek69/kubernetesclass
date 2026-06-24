@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: event-aggregator
+  namespace: shared-services
+
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: event-aggregator
+
+  template:
+    metadata:
+      labels:
+        app: event-aggregator
+
+    spec:
+      containers:
+      - name: aggregator
+
+        image: gcr.io/PROJECT_ID/event-aggregator:v1
+
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+
+metadata:
+  name: event-aggregator
+  namespace: shared-services
+
+spec:
+  selector:
+    app: event-aggregator
+
+  ports:
+  - port: 8080
+    targetPort: 8080
