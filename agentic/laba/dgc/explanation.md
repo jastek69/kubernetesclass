@@ -120,6 +120,19 @@ Policy:
 
 Every execution produces exactly the same decision.
 
+The DGC is responsible for:
+
+        * Normalizing telemetry collected from multiple security tools
+        * Risk scoring using deterministic rules and organizational policies
+        * Correlating findings to the OWASP Top 10
+        * Mapping findings to applicable NIST Cybersecurity Framework controls
+        * Evaluating organizational security policies
+        * Authorizing or denying MCP tool requests
+        * Determining when Jira incidents should be created
+        * Routing incidents based on severity and escalation policies
+        * Generating audit evidence for governance and compliance reporting
+        * Producing consistent, repeatable decisions that can be audited and explained
+
 Where Does AI Fit?
 
 AI does not replace the DGC. Instead, AI works alongside it.
@@ -214,18 +227,6 @@ Using a DGC provides:
 
 This architecture aligns well with highly regulated environments where explainability and repeatability are essential.
 
-The DGC is responsible for:
-
-        * Normalizing telemetry collected from multiple security tools
-        * Risk scoring using deterministic rules and organizational policies
-        * Correlating findings to the OWASP Top 10
-        * Mapping findings to applicable NIST Cybersecurity Framework controls
-        * Evaluating organizational security policies
-        * Authorizing or denying MCP tool requests
-        * Determining when Jira incidents should be created
-        * Routing incidents based on severity and escalation policies
-        * Generating audit evidence for governance and compliance reporting
-        * Producing consistent, repeatable decisions that can be audited and explained
 
 The AI Advisory Layer complements the DGC by performing tasks that benefit from reasoning and natural language understanding, including:
 
