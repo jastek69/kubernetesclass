@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: logging-demo
+  namespace: app01
+  labels:
+    app: logging-demo
+
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: logging-demo
+
+  template:
+    metadata:
+      labels:
+        app: logging-demo
+
+    spec:
+      containers:
+      - name: logger
+        image: busybox
+
+        command:
+        - /bin/sh
+        - -c
+        - |
+
+          while true
+          do
+            echo "$(date) INFO Application healthy"
+            sleep 5
+
+            echo "$(date) WARNING Slow database response"
+            sleep 5
+
+            echo "$(date) ERROR Failed login attempt"
+            sleep 5
+          done
