@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ServiceAccount
+
+metadata:
+  name: mcp-observer-agent
+  namespace: ai-agents
+
+  annotations:
+    iam.gke.io/gcp-service-account: \
+      mcp-observer-agent@PROJECT_ID.iam.gserviceaccount.com
