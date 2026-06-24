@@ -1,0 +1,41 @@
+```yaml id="2b3e11"
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: mcp-observer-agent
+  namespace: ai-agents
+
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: mcp-observer-agent
+
+  template:
+    metadata:
+      labels:
+        app: mcp-observer-agent
+
+    spec:
+      serviceAccountName: mcp-observer-agent
+
+      containers:
+      - name: observer
+
+        image: gcr.io/PROJECT_ID/mcp-observer-agent:v1
+
+        resources:
+          requests:
+            cpu: "250m"
+            memory: "256Mi"
+
+          limits:
+            cpu: "500m"
+            memory: "512Mi"
+
+        securityContext:
+          runAsNonRoot: true
+          readOnlyRootFilesystem: true
+```
