@@ -1,0 +1,61 @@
+```yaml id="4d4g05"
+apiVersion: v1
+kind: ConfigMap
+
+metadata:
+  name: mcp-nginx-config
+  namespace: mcp-gateway
+
+data:
+
+  default.conf: |
+    server {
+
+        listen 443 ssl;
+
+        # =====================================
+        # SERVER CERTIFICATE
+        # =====================================
+
+        ssl_certificate \
+        /etc/nginx/tls/tls.crt;
+
+        ssl_certificate_key \
+        /etc/nginx/tls/tls.key;
+
+        # =====================================
+        # CLIENT CERTIFICATE VALIDATION
+        # =====================================
+
+        ssl_client_certificate \
+        /etc/nginx/client-ca/ca.crt;
+
+        ssl_verify_client on;
+
+        ssl_protocols TLSv1.2 TLSv1.3;
+
+        # =====================================
+        # SECURITY HEADERS
+        # =====================================
+
+        add_header X-Frame-Options DENY;
+        add_header X-Content-Type-Options nosniff;
+
+        # =====================================
+        # MCP PROXY
+        # =====================================
+
+        location / {
+
+            proxy_pass http://mcp-server.mcp.svc.cluster.local:8080;
+
+            proxy_set_header Host $host;
+
+            proxy_set_header X-Client-Verify \
+            $ssl_client_verify;
+
+            proxy_set_header X-Client-DN \
+            $ssl_client_s_dn;
+        }
+    }
+```
