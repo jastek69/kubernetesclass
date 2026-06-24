@@ -1,0 +1,48 @@
+#you need to save this in constrainttemplates/k8snamespacecommunication.yaml
+
+apiVersion: templates.gatekeeper.sh/v1beta1
+kind: ConstraintTemplate
+metadata:
+  name: k8snamespacecommunication
+
+spec:
+  crd:
+    spec:
+      names:
+        kind: K8sNamespaceCommunication
+
+      validation:
+        openAPIV3Schema:
+          type: object
+          properties:
+            blockedNamespaces:
+              type: array
+              items:
+                type: string
+
+  targets:
+  - target: admission.k8s.gatekeeper.sh
+
+    rego: |
+      package k8snamespacecommunication
+
+      violation[{"msg": msg}] {
+
+        input.review.kind.kind == "NetworkPolicy"
+
+        source_ns := input.review.object.metadata.namespace
+
+        blocked := input.parameters.blockedNamespaces[_]
+
+        ingress := input.review.object.spec.ingress[_]
+        from := ingress.from[_]
+
+        from.namespaceSelector.matchLabels.name == blocked
+
+        source_ns == "mcp"
+
+        msg := sprintf(
+          "Communication from blocked namespace '%v' to '%v' is not allowed",
+          [blocked, source_ns]
+        )
+      }
