@@ -1,0 +1,10 @@
+customRules:
+  custom-rules.yaml: |-
+    - rule: Detect Curl Usage
+      desc: Detect curl execution inside container
+      condition: >
+        spawned_process and proc.name="curl"
+      output: >
+        Curl executed inside container
+        (user=%user.name command=%proc.cmdline)
+      priority: WARNING
