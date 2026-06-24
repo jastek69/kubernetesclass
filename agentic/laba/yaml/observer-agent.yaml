@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: observer-agent
+  namespace: ai-agents
+
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: observer-agent
+
+  template:
+    metadata:
+      labels:
+        app: observer-agent
+
+    spec:
+      serviceAccountName: observer-agent
+
+      containers:
+      - name: observer-agent
+
+        image: gcr.io/PROJECT_ID/observer-agent:v1
+
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+
+metadata:
+  name: observer-agent
+  namespace: ai-agents
+
+spec:
+  selector:
+    app: observer-agent
+
+  ports:
+  - port: 8080
+    targetPort: 8080
