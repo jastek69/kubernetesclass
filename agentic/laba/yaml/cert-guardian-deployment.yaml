@@ -1,0 +1,45 @@
+```yaml id="fd4g1g"
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: cert-guardian-agent
+  namespace: ai-governance
+
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: cert-guardian-agent
+
+  template:
+    metadata:
+      labels:
+        app: cert-guardian-agent
+
+    spec:
+
+      serviceAccountName: cert-guardian-agent
+
+      containers:
+
+      - name: cert-guardian
+
+        image: \
+gcr.io/PROJECT_ID/cert-guardian-agent:v1
+
+        resources:
+          requests:
+            cpu: "250m"
+            memory: "256Mi"
+
+          limits:
+            cpu: "500m"
+            memory: "512Mi"
+
+        securityContext:
+          runAsNonRoot: true
+          readOnlyRootFilesystem: true
+          allowPrivilegeEscalation: false
+```
