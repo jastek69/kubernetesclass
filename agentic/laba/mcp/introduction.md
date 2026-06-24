@@ -1,4 +1,5 @@
-Lab 1C — Introduction to the Model Context Protocol (MCP)
+# Lab 1C — Introduction to the Model Context Protocol (MCP)
+
 What is MCP?
 
 Imagine you have a very intelligent AI assistant.
@@ -19,13 +20,9 @@ It cannot automatically:
 
 unless something provides those capabilities.
 
-This is where the Model Context Protocol (MCP) comes in.
+This is where the Model Context Protocol (MCP) comes in. Think of MCP Like a USB Port
 
-Think of MCP Like a USB Port
-
-A laptop is useful by itself.
-
-But when you plug in:
+A laptop is useful by itself. But when you plug in:
 
     a keyboard
     a webcam
@@ -86,19 +83,14 @@ With MCP:
     Easier security controls
     Easier auditing
 
-What Does an MCP Server Actually Do?
+# What Does an MCP Server Actually Do?
 
-Think of the MCP Server as a tool broker.
+Think of the MCP Server as a tool broker. It answers questions like:
 
-It answers questions like:
-
-What tools are available?
-
-What parameters does this tool require?
-
-Is this user authorized?
-
-Execute this approved request.
+    What tools are available? 
+    What parameters does this tool require? 
+    Is this user authorized?
+    Execute this approved request.
 
 The AI itself does not directly access Kubernetes or Jira.
 
@@ -121,7 +113,7 @@ The MCP Server becomes the trusted intermediary.
 
 Example
 
-A user asks: "How many pods are running in namespace app01?"
+    A user asks: "How many pods are running in namespace app01?"
 
 The AI does not know.
 
@@ -174,7 +166,7 @@ In our architecture we add even more protection:
 
 Notice that several security layers exist before any command reaches the cluster.
 
-MCP in Our Lab
+# MCP in Our Lab
 
 Our implementation treats the MCP Server as a secure application gateway rather than simply a protocol endpoint.
 
