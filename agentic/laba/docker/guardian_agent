@@ -1,0 +1,15 @@
+```dockerfile id="cd4g1d"
+FROM python:3.11-slim
+
+WORKDIR /app
+
+COPY cert_guardian_agent.py .
+
+RUN pip install \
+kubernetes \
+cryptography \
+google-cloud-aiplatform \
+vertexai
+
+CMD ["python", "cert_guardian_agent.py"]
+```
