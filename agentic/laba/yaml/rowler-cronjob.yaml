@@ -1,0 +1,28 @@
+apiVersion: batch/v1
+kind: CronJob
+
+metadata:
+  name: prowler-scan
+  namespace: security
+
+spec:
+  schedule: "0 */6 * * *"
+
+  jobTemplate:
+    spec:
+      template:
+
+        spec:
+          serviceAccountName: prowler-ksa
+
+          restartPolicy: Never
+
+          containers:
+          - name: prowler
+
+            image: toniblyx/prowler:latest
+
+            args:
+            - gcp
+            - --output-formats
+            - json-asff
