@@ -1,0 +1,30 @@
+apiVersion: batch/v1
+kind: Job
+
+metadata:
+  name: findings-publisher
+  namespace: security
+
+spec:
+  template:
+
+    spec:
+      restartPolicy: Never
+
+      containers:
+      - name: publisher
+
+        image: google/cloud-sdk:slim
+
+        command:
+        - /bin/sh
+        - -c
+        - |
+
+          gcloud pubsub topics publish findings-topic \
+          --message='{
+            "source":"trivy",
+            "severity":"MEDIUM",
+            "event_type":"vulnerable_image",
+            "image":"nginx:1.16"
+          }'
