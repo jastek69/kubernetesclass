@@ -174,5 +174,52 @@ In our architecture we add even more protection:
 
 Notice that several security layers exist before any command reaches the cluster.
 
+MCP in Our Lab
 
+Our implementation treats the MCP Server as a secure application gateway rather than simply a protocol endpoint.
+
+The architecture includes:
+
+        mTLS Gateway
+        OPA/Gatekeeper policies
+        Kubernetes RBAC
+        Audit logging
+        Certificate monitoring
+        AI Guardian Agent
+        Gateway Telemetry Agent
+
+This approach demonstrates how MCP can be deployed in enterprise environments where security and governance are just as important as AI functionality.
+
+Why Employers Care
+
+Many organizations are moving beyond simple chatbots.
+
+They want AI that can:
+
+        investigate incidents
+        retrieve logs
+        summarize telemetry
+        open Jira tickets
+        inspect Kubernetes clusters
+        assist cloud engineers
+
+MCP provides one of the emerging standards for connecting AI systems to those enterprise tools.
+
+Understanding MCP demonstrates that an engineer understands not only AI prompting, but also how AI integrates with production infrastructure.
+
+Key Takeaways
+
+By the end of this lab, students should understand:
+
+        An MCP Server is not an AI model.
+        It is not a database.
+        It is not Kubernetes.
+
+Instead, it is a secure intermediary that allows AI systems to discover and invoke approved tools in a standardized way.
+
+In our architecture, the MCP Server sits behind an mTLS gateway and a Deterministic Governance Core (DGC), ensuring that:
+
+        AI provides reasoning and recommendations.
+        Security policies determine what is permitted.
+        Human operators retain control over sensitive actions.
 
