@@ -1,0 +1,12 @@
+FROM python:3.11-slim
+
+WORKDIR /app
+
+COPY observer-agent.py .
+
+RUN pip install \
+flask \
+google-cloud-aiplatform \
+vertexai
+
+CMD ["python", "observer-agent.py"]
