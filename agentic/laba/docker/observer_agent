@@ -1,0 +1,14 @@
+```dockerfile id="zb3e08"
+FROM python:3.11-slim
+
+WORKDIR /app
+
+COPY observer_agent.py .
+
+RUN pip install \
+google-cloud-pubsub \
+google-cloud-aiplatform \
+vertexai
+
+CMD ["python", "observer_agent.py"]
+```
