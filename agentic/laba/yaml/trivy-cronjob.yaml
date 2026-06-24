@@ -1,0 +1,31 @@
+apiVersion: batch/v1
+kind: CronJob
+
+metadata:
+  name: trivy-scan
+  namespace: security
+
+spec:
+  schedule: "0 */6 * * *"
+
+  jobTemplate:
+    spec:
+
+      template:
+        spec:
+
+          restartPolicy: Never
+
+          containers:
+          - name: trivy
+
+            image: aquasec/trivy:latest
+
+            command:
+            - trivy
+
+            args:
+            - image
+            - nginx:1.16
+            - --format
+            - json
