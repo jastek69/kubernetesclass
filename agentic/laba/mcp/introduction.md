@@ -131,17 +131,11 @@ Instead:
     ↓
     Claude Explains Results
 
-The AI reasons about the output.
+The AI reasons about the output. The MCP Server performs the action.
 
-The MCP Server performs the action.
+# Why This Matters for Security
 
-Why This Matters for Security
-
-Imagine an AI connected directly to your Kubernetes cluster.
-
-That would be dangerous.
-
-Instead, the MCP Server provides security controls such as:
+Imagine an AI connected directly to your Kubernetes cluster. That would be dangerous. Instead, the MCP Server provides security controls such as:
 
     Authentication
     Authorization
@@ -182,11 +176,9 @@ The architecture includes:
 
 This approach demonstrates how MCP can be deployed in enterprise environments where security and governance are just as important as AI functionality.
 
-Why Employers Care
+# Why Employers Care
 
-Many organizations are moving beyond simple chatbots.
-
-They want AI that can:
+Many organizations are moving beyond simple chatbots. They want AI that can:
 
         investigate incidents
         retrieve logs
@@ -199,7 +191,7 @@ MCP provides one of the emerging standards for connecting AI systems to those en
 
 Understanding MCP demonstrates that an engineer understands not only AI prompting, but also how AI integrates with production infrastructure.
 
-Key Takeaways
+# Key Takeaways
 
 By the end of this lab, students should understand:
 
