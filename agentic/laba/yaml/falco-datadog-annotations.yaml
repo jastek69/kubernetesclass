@@ -1,0 +1,6 @@
+podAnnotations:
+  ad.datadoghq.com/falco.logs: |
+    [{
+      "source": "falco",
+      "service": "runtime-security"
+    }]
