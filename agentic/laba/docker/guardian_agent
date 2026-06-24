@@ -1,0 +1,14 @@
+```dockerfile id="ub3e1t"
+FROM python:3.11-slim
+
+WORKDIR /app
+
+COPY guardian_agent.py .
+
+RUN pip install \
+google-cloud-pubsub \
+google-cloud-aiplatform \
+vertexai
+
+CMD ["python", "guardian_agent.py"]
+```
