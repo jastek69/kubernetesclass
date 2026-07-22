@@ -11,6 +11,9 @@
     │-- evaluators/
     │   ├── latest_tag.py
     │
+    │-- adapters/
+    │   ├── jira.py
+    |
     ├── engines/
     │   ├── normalization_engine.py
     │   ├── policy_engine.py
