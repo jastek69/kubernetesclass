@@ -1,6 +1,8 @@
 
+Step 1 — Namespace YAML
 
-
+mcp-gateway-namespace.yaml
+https://github.com/BalericaAI/kubernetesclass/blob/main/agentic/laba/yaml/mcp-gateway-namespace.yaml
 
 
 Step 2 — Service Account
