@@ -21,7 +21,6 @@ easy to reason about.
 
 The DGC transforms one schema into another.
 
-```text
 
     SecurityEvent
             │
@@ -225,6 +224,7 @@ governance workflow.
 
 Each schema answers a different question.
 
+
 | Schema | Question Answered |
 |---------|-------------------|
 | SecurityEvent | What happened? |
@@ -233,6 +233,7 @@ Each schema answers a different question.
 | ExecutionPlan | What should happen next? |
 | ExecutionResult | What happened when a task executed? |
 | ExecutionRun | What was the overall execution outcome? |
+
 
 ---
 
