@@ -8,11 +8,12 @@ Evidence Schema
 Represents immutable evidence collected from scanners,
 gateways, Kubernetes, cloud providers, or AI agents.
 
-Evidence objects are metadata describing where evidence is
-stored. Large artifacts remain in external storage.
+Evidence objects contain metadata describing where evidence
+is stored. Large artifacts remain in external storage.
 
 Default retention for the educational lab is one year.
-Organizations may extend this to meet regulatory requirements.
+Organizations may extend this to satisfy regulatory
+requirements.
 """
 
 from datetime import datetime, timedelta
@@ -21,6 +22,7 @@ from typing import Any
 from uuid import uuid4
 
 from pydantic import BaseModel, ConfigDict, Field
+
 
 #
 # Default Retention
@@ -105,11 +107,12 @@ class Evidence(BaseModel):
 
     collected_time: datetime = Field(
         default_factory=datetime.utcnow,
-        description="UTC timestamp when evidence was collected."
+        description="UTC timestamp when the evidence was collected."
     )
 
     retention_until: datetime = Field(
-        default_factory=lambda: datetime.utcnow() + timedelta(days=DEFAULT_RETENTION_DAYS),
+        default_factory=lambda:
+            datetime.utcnow() + timedelta(days=DEFAULT_RETENTION_DAYS),
         description="Evidence retention expiration."
     )
 
@@ -135,19 +138,19 @@ class Evidence(BaseModel):
     evidence_type: EvidenceType
 
     #
-    # Artifact
+    # Artifact Information
     #
 
     artifact_name: str = Field(
         description="Original artifact filename."
     )
 
-    artifact_hash: str = Field(
+    sha256: str = Field(
         description="SHA-256 hash of the artifact."
     )
 
     mime_type: str = Field(
-        description="MIME type of the artifact."
+        description="Artifact MIME type."
     )
 
     size_bytes: int = Field(
@@ -164,7 +167,7 @@ class Evidence(BaseModel):
     )
 
     #
-    # Evidence Content
+    # Structured Content
     #
 
     raw_data: dict[str, Any] = Field(
@@ -182,7 +185,7 @@ class Evidence(BaseModel):
     )
 
     #
-    # Tags
+    # Classification
     #
 
     tags: list[str] = Field(
