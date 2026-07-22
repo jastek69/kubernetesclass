@@ -37,3 +37,34 @@ Create NGINX ConfigMap
 
 mcp-nginx-config.yaml
 https://github.com/BalericaAI/kubernetesclass/blob/main/agentic/laba/yaml/mcp-nginx-config.yaml
+
+Step 5 — Gateway Deployment
+
+mcp-gateway-deployment.yaml
+https://github.com/BalericaAI/kubernetesclass/blob/main/agentic/laba/yaml/mcp-gateway-deployment.yaml
+
+At this point, you should have:
+
+        secrets mounted securely
+        non-root execution
+        TLS isolation
+        dedicated trust layer
+
+Step 6 — Service YAML
+
+mcp-gateway-service.yaml
+
+https://github.com/BalericaAI/kubernetesclass/blob/main/agentic/laba/yaml/mcp-gateway-service.yaml
+
+Remember 
+
+kubectl apply -f mcp-nginx-config.yaml
+kubectl apply -f mcp-gateway-deployment.yaml
+kubectl apply -f mcp-gateway-service.yaml
+
+Step 7 — Validate
+Check Pods: kubectl get pods -n mcp-gateway
+Check Service: kubectl get svc -n mcp-gateway
+
+
+
