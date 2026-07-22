@@ -8,7 +8,7 @@
     │   ├── evidence.py
     │   └── policy.py
     │
-    │-- evaluation/
+    │-- evaluators/
     │   ├── latest_tag.py
     │
     ├── engines/
