@@ -1,12 +1,8 @@
-
 apiVersion: v1
 kind: Namespace
-
 metadata:
   name: mcp-gateway
-
   labels:
     purpose: mcp-security
     trust-level: high
     environment: lab
-```
