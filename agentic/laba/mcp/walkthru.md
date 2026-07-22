@@ -34,4 +34,4 @@ Client CA Secret: This validates AI agent certificates.
 Create NGINX ConfigMap
 
 mcp-nginx-config.yaml
-
+https://github.com/BalericaAI/kubernetesclass/blob/main/agentic/laba/yaml/mcp-nginx-config.yaml
