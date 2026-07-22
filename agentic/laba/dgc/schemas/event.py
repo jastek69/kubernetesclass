@@ -75,6 +75,21 @@ class SecurityEvent(BaseModel):
         default_factory=lambda: str(uuid4()),
         description="Unique Event Identifier"
     )
+    
+    request_id: str | None = Field(
+        default=None,
+        description="Original MCP request identifier."
+    )
+
+    correlation_id: str | None = Field(
+        default=None,
+        description="Groups related events into a single transaction or workflow."
+    )
+
+    parent_event_id: str | None = Field(
+        default=None,
+        description="Parent event if this event was generated from another event."
+    )
 
     timestamp: datetime = Field(
         default_factory=datetime.utcnow,
