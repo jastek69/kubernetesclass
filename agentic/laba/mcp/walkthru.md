@@ -5,7 +5,8 @@
 
 Step 2 — Service Account
 
-mcp-gateway-sa.yaml
+mcp-gateway-sa.yaml 
+https://github.com/BalericaAI/kubernetesclass/blob/main/agentic/laba/yaml/mcp-gateway-sa.yaml
 
 kubectl apply -f mcp-gateway-sa.yaml
 
