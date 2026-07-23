@@ -1,19 +1,13 @@
-```yaml id="7d4g08"
 apiVersion: v1
 kind: Service
-
 metadata:
   name: mcp-gateway
   namespace: mcp-gateway
-
 spec:
   selector:
     app: mcp-gateway
-
   ports:
   - protocol: TCP
     port: 443
     targetPort: 443
-
   type: LoadBalancer
-```
